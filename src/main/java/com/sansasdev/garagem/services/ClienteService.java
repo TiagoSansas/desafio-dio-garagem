@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sansasdev.garagem.entites.Cliente;
 import com.sansasdev.garagem.repositories.ClienteRepository;
+import com.sansasdev.garagem.services.exceptions.IdNaoLocalizado;
 
 @Service
 public class ClienteService {
@@ -17,4 +18,9 @@ public class ClienteService {
   public Page<Cliente> buscarTodos(Pageable pageable) {
     return clienteRepository.findAll(pageable);
   }
+
+  public Cliente buscarPorId(Long id) {
+    return clienteRepository.findById(id).orElseThrow(() -> new IdNaoLocalizado("Usuario não Localizado"));
+  }
+
 }
